@@ -52,7 +52,7 @@ public class UpdatesAndNotificationServiceImpl implements UpdatesAndNotification
 //          push to kafka with flight object
             messageProducer.sendStatusChangeUpdate("statusChanged",flight);
 
-//            System.out.println(flight.getFlight() + ": " + flight.getStatus());
+//          persist changed to database
             airportQueryService.saveOrUpdate(flight, storedFlight);
 
         }

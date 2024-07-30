@@ -28,10 +28,6 @@ public class FlightStatusCheck {
     FetchFlightDataService fetchFlightDataService;
 
     @Scheduled(cron ="0 */5 * * * *")
-    public void Testthis(){
-        System.out.println("CRON TRIGGERED AT: "+ new java.util.Date());
-    }
-
     @GetMapping("/trigger-notification")
     public ResponseEntity<Map<String, Object>> triggerNotifications() {
 

@@ -31,7 +31,7 @@ public class AirportQueryServiceImpl implements AirportQueryService {
     }
 
     @Override
-    public Void saveOrUpdate(AirportQuery flight, AirportQuery storedFlight) {
+    public void saveOrUpdate(AirportQuery flight, AirportQuery storedFlight) {
 
         if(storedFlight == null){
             airportQueryRepository.save(
@@ -48,7 +48,7 @@ public class AirportQueryServiceImpl implements AirportQueryService {
                             .last_updated(flight.getLast_updated())
                             .build()
             );
-            return null;
+            return;
         }
 
         storedFlight.setStatus(flight.getStatus());
@@ -61,6 +61,5 @@ public class AirportQueryServiceImpl implements AirportQueryService {
 
         airportQueryRepository.save(storedFlight);
 
-        return null;
     }
 }

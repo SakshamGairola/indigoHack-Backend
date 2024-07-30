@@ -9,6 +9,6 @@ public interface AirportQueryService {
 
     Map<String, AirportQuery> findAllByFlight(List<String> flights);
 
-    Void saveOrUpdate(AirportQuery flight, AirportQuery storedFlight);
+    void saveOrUpdate(AirportQuery flight, AirportQuery storedFlight);
 
 }
