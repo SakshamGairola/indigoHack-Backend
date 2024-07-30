@@ -28,7 +28,7 @@ public class UpdatesAndNotificationServiceImpl implements UpdatesAndNotification
     @Override
     public void checkFlightStatusesAndSendNotification() {
 //      fetch data from Airport
-        List<AirportQuery> flightsStatuses = fetchFlightDataService.fetchData("");
+        List<AirportQuery> flightsStatuses = fetchFlightDataService.fetchData("", "");
 
         List<String> flights = new ArrayList<>();
 

@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface FetchFlightDataService {
 
-    public List<AirportQuery> fetchData(String airline);
+    public List<AirportQuery> fetchData(String airline, String caller);
 
 }

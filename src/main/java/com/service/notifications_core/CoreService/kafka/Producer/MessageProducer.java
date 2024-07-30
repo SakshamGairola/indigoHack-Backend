@@ -16,7 +16,7 @@ public class MessageProducer {
 //    }
 
     @Autowired
-    private KafkaTemplate<String, AirportQuery> statusChangeUpdate;
+    private KafkaTemplate<String, Object> statusChangeUpdate;
 
     public void sendStatusChangeUpdate(String topic, AirportQuery message) {
         statusChangeUpdate.send(topic, message);

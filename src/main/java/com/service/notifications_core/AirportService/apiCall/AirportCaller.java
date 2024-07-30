@@ -84,8 +84,11 @@ public class AirportCaller {
 
     }
 
-    public List<AirportQuery> getAirLineData(String airlineName){
-        counter += 1;
+    public List<AirportQuery> getAirLineData(String airlineName, String caller){
+
+        if(!caller.equalsIgnoreCase("dashboard")){
+            counter += 1;
+        }
         airlineName = "indigo";
         if (counter%5 ==0){
             querySet.get(0).setStatus("Delayed");

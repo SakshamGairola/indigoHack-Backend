@@ -11,8 +11,8 @@ import java.util.List;
 public class FetchFlightDataServiceImpl implements FetchFlightDataService {
 
     @Override
-    public List<AirportQuery> fetchData(String airline){
-        return new AirportCaller().getAirLineData(airline);
+    public List<AirportQuery> fetchData(String airline, String caller){
+        return new AirportCaller().getAirLineData(airline, caller);
     }
 
 }

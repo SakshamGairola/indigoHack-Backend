@@ -1,4 +1,4 @@
-package com.service.notifications_core.NotificationService.kafka.Consumer;
+package com.service.notifications_core.NotificationService.configurations;
 
 import com.service.notifications_core.CommonServices.model.AirportQuery;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
