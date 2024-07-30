@@ -8,9 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -19,16 +21,17 @@ import java.util.Map;
 @RestController
 public class FlightStatusCheck {
 
-    @Value("${cron.triggerFrequency}")
-    private String triggerFrequency;
-
     @Autowired
     UpdatesAndNotificationService updatesAndNotificationService;
 
     @Autowired
     FetchFlightDataService fetchFlightDataService;
 
-//    @Scheduled(cron = triggerFrequency)
+    @Scheduled(cron ="0 */5 * * * *")
+    public void Testthis(){
+        System.out.println("CRON TRIGGERED AT: "+ new java.util.Date());
+    }
+
     @GetMapping("/trigger-notification")
     public ResponseEntity<Map<String, Object>> triggerNotifications() {
 

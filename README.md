@@ -1,33 +1,55 @@
-# Read Me First
-The following was discovered as part of building this project:
+# About Application
 
-* The original package name 'com.service.notifications-core' is invalid and this project uses 'com.service.notifications_core' instead.
+This is the orchestration service that handles checking if status of any flight changed or not and send SMS, email to users based on status updates
 
-# Getting Started
+## IMPORTANT
 
-### Reference Documentation
-For further reference, please consider the following sections:
+This service relies on kafka as its message broker so make sure to install setup and run the servers
 
-* [Official Apache Maven documentation](https://maven.apache.org/guides/index.html)
-* [Spring Boot Maven Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/3.3.2/maven-plugin/reference/html/)
-* [Create an OCI image](https://docs.spring.io/spring-boot/docs/3.3.2/maven-plugin/reference/html/#build-image)
-* [Spring Web](https://docs.spring.io/spring-boot/docs/3.3.2/reference/htmlsingle/index.html#web)
-* [Spring Data JPA](https://docs.spring.io/spring-boot/docs/3.3.2/reference/htmlsingle/index.html#data.sql.jpa-and-spring-data)
-* [Spring Data MongoDB](https://docs.spring.io/spring-boot/docs/3.3.2/reference/htmlsingle/index.html#data.nosql.mongodb)
+## To run the Kafka Serve
 
-### Guides
-The following guides illustrate how to use some features concretely:
+Install and run docker
 
-* [Building a RESTful Web Service](https://spring.io/guides/gs/rest-service/)
-* [Serving Web Content with Spring MVC](https://spring.io/guides/gs/serving-web-content/)
-* [Building REST services with Spring](https://spring.io/guides/tutorials/rest/)
-* [Accessing Data with JPA](https://spring.io/guides/gs/accessing-data-jpa/)
-* [Accessing Data with MongoDB](https://spring.io/guides/gs/accessing-data-mongodb/)
+`https://docs.docker.com/engine/install/`
 
-### Maven Parent overrides
+To run Kafka server from the project root directory run the following command
 
-Due to Maven's design, elements are inherited from the parent POM to the project POM.
-While most of the inheritance is fine, it also inherits unwanted elements like `<license>` and `<developers>` from the parent.
-To prevent this, the project POM contains empty overrides for these elements.
-If you manually switch to a different parent and actually want the inheritance, you need to remove those overrides.
+`docker-composer up -d`
 
+To run the application make sure you have maven installed
+
+`https://maven.apache.org/install.html`
+
+Make sure PostgreSQL with database named `airline_queries` is running
+
+Make sure you have atleast Java 17 installed and added to PATH
+
+Finally install dependcies and run
+
+```
+mvnw install
+
+mvnw springboot:run
+```
+
+The local developement server will start on `localhost:8080`
+
+# Application Architechture
+
+![alt text](./src/main/resources/static/235434.png)
+
+## This Service is broken down into 7 peice below is a short explation for each one 
+
+1. Airport: This is external entiry i.e, database on airport side, We have mocked the service in this case which can be fond in `AirportService` package
+
+2. Core Service: Pulls data from airport checks ini there are any changes and persist in db then push message to kafka if found, implementaion in `Core Service` package
+
+3. Kafka: This is message broker for this application
+
+4. PNS: This service is responsible for reading the message from Kafka queue and sending updates through appropriate channel by invoking their respective services. Implementation can be found in `NotificationService` package
+
+5. These services will actually send notifiaction/sms/updates
+
+6. Cron trigger is responsible for polling `AirportService` at fixed intervals in this case 5 mins
+
+7. A user can see changes and current statuses on [Dashboard](https://github.com/SakshamGairola/indigoHack-Frontend) application
